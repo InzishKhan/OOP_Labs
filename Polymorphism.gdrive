@@ -1,0 +1,124 @@
+#include<iostream>
+#include<Windows.h>
+#include<conio.h>
+using namespace std;
+class Animal {
+public:
+	virtual string speak() {
+		return "speak() called";
+		
+	}
+	virtual ~Animal() {
+		cout << "~Animal() called"<<endl;
+	}
+};
+class Dog :public Animal {
+public:
+	string speak() {
+		return "Woof!";
+	}
+	~Dog() {
+		cout << "~Dog() called"<<endl;
+	}
+};
+class Cat:public Animal {
+public:
+	string speak() {
+		return "mew!";
+	}
+	~Cat() {
+		cout << "~Cat() called"<<endl;
+	}
+};
+class Sheep :public Animal {
+public:
+	string speak() {
+		return "bleat";
+	}
+	~Sheep() {
+		cout << "~Sheep() called" << endl;
+	}
+};
+class cows :public Animal {
+public:
+	string speak() {
+		return "moo";
+	}
+	~cows() {
+		cout << "~cows() called" << endl;
+	}
+};
+class horses :public Animal {
+public:
+	string speak() {
+		return "neigh";
+	}
+	~horses() {
+		cout << "~horses() called" << endl;
+	}
+};
+int main() {
+	{
+		Animal objAnimal;
+		Dog objDog;
+		Animal* ptrAnimal = &objAnimal;
+		ptrAnimal = &objDog;//no error
+		Dog* ptrDog = &objDog;
+		//ptrDog = &objAnimal   //error because derived class can only hold the address of its own object
+		cout << objAnimal.speak() << endl;
+		cout << objDog.speak() << endl;
+		cout << ptrAnimal->speak() << endl;
+		cout << ptrDog->Animal::speak();
+		cout << endl;
+		Dog lassie;
+		Animal* myPet = &lassie;
+		cout << myPet->speak() << endl;
+		const int size = 2;
+		Animal* myPets[size];
+		Cat whiskers;
+		Dog mutley;
+		myPets[0] = &whiskers;
+		myPets[1] = &mutley;
+		for (int i = 0; i < size; i++)
+			cout << myPets[i]->speak() << endl;
+		const int S = 5;
+		Animal* MyPets[S];
+		int i = 0;
+		char ans = 0;
+		for (int i = 0; i < S; i++) {
+			cout << "Press 1 for a Dog and 2 for a Cat." << endl;
+			cin >> ans;
+			switch (ans)
+			{
+			case '1':
+				MyPets[i] = new Dog;
+				cout << "Dog added at position " << i << endl << endl;
+				break;
+			case '2':
+				MyPets[i] = new Cat;
+				cout << "Cat added at position " << i << endl << endl;
+				break;
+			case '3':
+				MyPets[i] = new Sheep;
+				cout << "Sheep added at position" << i << endl << endl;
+				break;
+			case'4':
+				MyPets[i] = new cows;
+				cout << "Cows added at position" << i << endl << endl;
+				break;
+			case '5':
+				MyPets[i] = new horses;
+				cout << "horses added at position" << i << endl << endl;
+				break;
+			default:
+				cout << "Invalid input. Enter again." << endl << endl;
+				break;
+			}
+		}
+		for (int i = 0; i < S; i++) {
+			cout << MyPets[i]->speak() << endl;
+		}
+	}
+	Sleep(-1);
+	return 0;
+}

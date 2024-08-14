@@ -1,0 +1,95 @@
+#include<iostream>
+#include<Windows.h>
+using namespace std;
+class Date{
+	int Day;
+	int Month;
+	int Year;
+public:
+	Date(){
+		cout<<"Default constructor is called"<<endl;
+		Day=1;
+		Month=1;
+		Year=1926;
+	}
+	void input(){
+		cout<<"Enter the Day"<<endl;
+		cin>>Day;
+		cout<<"Enter the Month"<<endl;
+		cin>>Month;
+		cout<<"Enter the Year"<<endl;
+		cin>>Year;
+	}
+	void SetDay(int d){
+		Day=d;
+	}
+	void SetMonth(int m){
+		Month=m;
+	}
+	void SetYear(int y){
+		Year=y;
+	}
+	int getDay(){
+		return Day;
+	}
+	int getMonth(){
+		return Month;
+	}
+	int getYear(){
+		return Year;
+	}
+	Date(int d,int m,int y){
+	cout<<"Overloaded Function is called"<<endl;
+	Day=d;
+	Month=m;
+	Year=y;
+	}
+	void Print()
+	{
+		cout<<Day<<"/"<<Month<<"/"<<Year<<endl;
+	}
+	void incrementMonth()
+	{
+		cout<<Day<<"/"<<Month+1<<"/"<<Year<<endl;
+	}
+	int Compare(Date d){
+	    if(d.Year>Year){
+		   return 1;	
+	    }
+	    else if(d.Year<Year){
+		   return -1;
+	    }
+	    else if(d.Year==Year) {
+		   return 0;
+	    }
+	}
+~Date(){
+		cout<<"Destrutor is called"<<endl;
+	}
+};
+int main(){
+	{
+	Date date1,independenceDay(14,8,2018),xmasDay,temp;
+	date1.Print();
+	date1.input();
+	date1.Print();
+	independenceDay.Print();
+	xmasDay.Print();
+	xmasDay.SetDay(25);
+	xmasDay.SetMonth(12);
+	xmasDay.SetYear(2018);
+	xmasDay.Print();
+	xmasDay.getDay();
+	xmasDay.getMonth();
+	xmasDay.getYear();
+	xmasDay.Print();
+	temp=xmasDay;
+	temp.Print();
+	int a=xmasDay.Compare(independenceDay);
+	cout<<a<<endl;
+	date1.incrementMonth();
+	date1.Print();
+	}
+	Sleep(-1);
+	return 0;
+}

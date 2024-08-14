@@ -1,0 +1,102 @@
+#include<iostream>
+using namespace std;
+int* InputArray(int& size) {
+    int* arr = new int[size];
+    cout << "Enter the Elements of the array: " << endl;
+    for (int i = 0; i < size; i++) {
+        cin >> *(arr + i);
+    }
+    return arr;
+}
+
+void OutputArray(const int* myArray, const int& size) {
+    for (int i = 0; i < size; i++) {
+        cout << *(myArray + i) << " ";
+    }
+}
+int* CompressArray(int* originalArr, int& size) {
+    int* n_arr = new int[size];
+    int count = 0, j;
+    for (int i = 0; i < size;) {
+        *(n_arr + count) = *(originalArr + i);
+        count++;
+        for (j = i + 1; j < size; j++)
+        {
+            if (*(originalArr + i) != *(originalArr + j))
+            {
+                break;
+            }
+
+        }
+        i = j;
+    }
+    size = count;
+    int* N_arr = new int[count];
+    for (int i = 0; i < count; i++) {
+        *(N_arr + i) = *(n_arr + i);
+    }
+    delete[]n_arr;
+    delete[]originalArr;
+    return N_arr;
+
+}
+int*Intersection(int*setA,int& size1,int*setB,int&size2,int&size3){
+    //array 1 input
+    cout << "Enter the " << size1 << " Elements of Array1 : ";
+    for(int i=0;i<size1;i++){
+        cin>>*(setA+i);
+    }
+    //array 2 input
+    cout << "Enter the " << size2 << " Elements of Array2 : "; 
+    for(int i=0;i<size2;i++){
+        cin>>*(setB+i);
+    }
+    int count = 0;
+    int* N_arr = new int[size3];
+    for (int i = 0; i < size1; i++) {
+        for (int j = 0; j < size2; j++) {
+            if (*(setA + i) == *(setB + j)) {
+                *(N_arr+i) = *(setA + i);
+                count++;
+            }
+        }
+    }
+    int *new_arr=new int[count];
+    for (int i = 0; i < count; i++) {
+        *(new_arr + i) = *(N_arr + i);
+    }
+    delete[] N_arr;
+    delete[] setA;
+    delete[] setB;
+    return new_arr;
+}
+
+int main() {
+    int size;
+    cout << "Enter the size: ";
+    cin >> size;
+    int* ptr;
+    ptr = InputArray(size);
+    cout << "Elements of the array :" << endl;
+    OutputArray(ptr, size);
+    cout << endl;
+    ptr = CompressArray(ptr, size);
+    cout << "Compressed array : " << endl;
+    OutputArray(ptr, size);
+    int size1,size2,size3;
+    cout << endl;
+    cout<<"Enter the size of Array1:";
+    cin>>size1;
+    cout<<"Enter the size of Array2:";
+    cin>>size2;
+    int *pt=new int[size1];
+    int*pt1=new int[size2];
+    size3 = size1 + size2;
+    int* pt2 = new int[size3];
+    pt2=Intersection(pt,size1,pt1,size2,size3);
+    cout << "Intersection of Given Arrays : " << endl;
+    cout << *pt2 << " ";
+    delete[]pt2;
+    delete[]ptr;
+    return 0;
+}

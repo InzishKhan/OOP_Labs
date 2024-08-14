@@ -1,0 +1,104 @@
+#include<iostream>
+#include<Windows.h>
+#include<string>
+using namespace std;
+class Person {
+	string first_name;
+	string last_name;
+protected:
+	int age;
+public:
+	Person(string fname, string lname, int Age) {
+		first_name= fname;
+	    last_name= lname;
+		age = Age;
+		cout << "Person() called"<<endl;
+	}
+	void printInformation() {
+		cout << first_name<< " " << last_name << "  is " << age <<" years old " <<endl;
+	}
+	void printName() {
+		cout << first_name << " " << last_name << endl;
+	}
+	~Person() {
+		cout << " ~Person() called" << endl;
+	}
+};
+class faculty :public Person {
+	int count_course;
+	int telPhone;
+public:
+	faculty(int Ccourse, int Telphone, string fname, string lname, int Age) :Person(fname, lname, Age) {
+		count_course = Ccourse;
+		telPhone = Telphone;
+		cout << "faculty() called" << endl;
+	}
+	void printFaculty() {
+		cout << printInformation() << " , course count = " << count_course << " ,telephone number = " << telPhone << endl;
+	}
+	~faculty() {
+		cout << "~faculty called" << endl;
+	}
+	
+};
+class Student :public Person {
+	float cgpa;
+public:
+	Student(string fname, string lname, int Age, float Cgpa) :Person(fname, lname, Age) {
+		cgpa = Cgpa;
+		cout << "Student() called" << endl;
+	}
+	void printStudent() {
+		cout << printInformation()<<" years old ,his gpa is  "<<cgpa<< endl;
+	}
+	void printCgpa() {
+		cout << cgpa;
+	}
+	~Student() {
+		cout << " ~Student called" << endl;
+	}
+
+};
+class Undergraduate :public Student{
+	string fyp_name;
+public:
+	Undergraduate(string fname, string lname, int Age, float Cgpa, string FypN) :Student(fname, lname, Age, Cgpa) {
+		fyp_name =FypN;
+		cout << "Undergraduate() called" << endl;
+	}
+	void printUndergraduate() {
+		cout << printName() << " is an undergraduate student, his cgpa is " << printCgpa() << " and his final year project is titled the "<<fyp_name << endl;
+	}
+	~Undergraduate() {
+		cout << "~Undergraduate called" << endl;
+	}
+};
+class Graduate :public Student{
+	string thesisT;
+public:
+	Graduate(string fname, string lname, int Age, float Cgpa, string ThesisT) :Student(fname, lname, Age, Cgpa) {
+		thesisT=ThesisT;
+		cout << "Graduate() called" << endl;
+	}
+	void printGraduate() {
+		cout << printStudent() << " and his thesis topic is " << thesisT << endl;
+	}
+	void printThesisT() {
+		cout << thesisT;
+	}
+	~Graduate() {
+		cout << "~Graduate called" << endl;
+	}
+};
+int main() {
+	Undergraduate s("Ted", "Thompson", 22, 3.91, "The Event Locator");
+	faculty s1(2, 420, "Richard", "Karp", 45);
+	Student s2("Inzish","Khan",19,3.3);
+	s2.printStudent();
+	s1.printFaculty();
+	s.printUndergraduate();
+	Graduate s3("Arnold", "Gates", 25, 3.01, "Distributed Algorithms");
+	s3.printGraduate();
+	Sleep(-1);
+	return 0;
+}

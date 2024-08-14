@@ -1,0 +1,131 @@
+#include<iostream>
+#include<Windows.h>
+using namespace std;
+class Animal {
+public:
+	virtual string speak() {
+		return "speak() is called";
+	}
+};
+class Dog:public Animal {
+public:
+	string speak() {
+		return "woof!";
+	}
+};
+class Computer {
+	string companyName;
+	int price;
+public:
+	Computer(string Cname, int Price) {
+		companyName = Cname;
+		price = Price;
+	}
+	virtual void show() = 0;
+	string getData() {
+		return companyName;
+	}
+	int getprice() {
+		return price;
+	}
+};
+class Destop :public Computer {
+protected:
+	string color;
+	int size;
+	int weight;
+	string processorType;
+public:
+	Destop(string Cname, int p, string Color, int S, int W, string Ptype) :Computer(Cname, p) {
+		color = Color;
+		size = S;
+		weight = W;
+		processorType = Ptype;
+	}
+	void show() {
+		cout << "color : " << color << endl;
+		cout << "Size : " << size << endl;
+		cout << "Weight : " << weight << endl;
+		cout << "processor Type : " << processorType << endl;
+		cout << "Company Name : " << getData() << endl;
+		cout << "Price : " << getprice() << endl;
+	}
+};
+class Laptop :public Computer{
+public:
+	Laptop(string cName, int p) :Computer(cName, p) {
+	}
+	void show() {
+		cout << "Company Name : " << getData() << endl;
+		cout << "Price : " << getprice() << endl;
+	}
+};
+class Person {
+	string personName;
+	int age;
+public:
+	Person(string pN, int Age) {
+		personName = pN;
+		age = Age;
+	}
+	virtual void print() = 0;
+	string getName() {
+		return personName;
+	}
+	int getAge() {
+		return age;
+	}
+};
+class Patient :public Person {
+	string diseaseType;
+	string recommendedMedicine;
+public:
+	Patient(string personN, int AGE, string Dtype, string RecommendM) :Person(personN, AGE) {
+		diseaseType = Dtype;
+		recommendedMedicine = RecommendM;
+	}
+	void print() {
+		cout << "disease type : " << diseaseType << endl;
+		cout << "recommended medicine : " << recommendedMedicine << endl;
+		cout << "Person Name : " << getName() << endl;
+		cout << " Age of the person : " << getAge() << endl;
+	}
+};
+class MedicarePatient :public Patient {
+	string nameOfH;
+	string nameOfW;
+	int roomN;
+public:
+	MedicarePatient(string personN, int AGE, string Dtype, string RecommendM, string nameOfh, string nameofw, int roomNo) :Patient(personN, AGE, Dtype, RecommendM) {
+		nameOfW = nameofw;
+		nameOfH = nameOfh;
+		roomN = roomNo;
+	}
+	void print() {
+		cout << "Name of the hospital : " << nameOfH << endl;
+		cout << "Name of the ward : " << nameOfW << endl;
+		cout << "room number : " << roomN << endl;
+	}
+};
+int main() {
+	Animal objAnimal;
+	Dog objDog;
+	Animal* ptrAnimal = &objDog;
+	Dog* ptrDog ;
+	ptrDog = (Dog*)&objAnimal;
+	cout<<ptrDog->speak()<<endl;
+	cout << objAnimal.speak() << endl;
+	cout << objDog.speak() << endl;
+	cout << ptrAnimal->speak() << endl;
+	cout<<ptrDog->Animal::speak();
+	Destop obj("IK", 2000, "Pink", 20, 45, "100G");
+	obj.show();
+	Laptop obj1("InzishK",2000);
+	obj1.show();
+	Patient obj2("inzishK", 19, "MonkeyPox", "panadol");
+	obj2.print();
+	MedicarePatient obj3("shumail",50,"BloodInfection","poison","CMH","1001m",202);
+	obj3.print();
+	Sleep(-1);
+	return 0;
+}
